@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Caretaker Archive</title>
+  <meta name="description" content="Declassified without authorization. Browse leaked executive correspondence, subject registry extracts, molecular templates, and audio leaks." />
+
+  <style>
+    :root{
+      --bg:#0b0d12;
+      --text:#e8edf6;
+      --muted:#a8b2c4;
+      --accent:#7cf7d4;
+      --danger:#ff6b6b;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 12px 28px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 800px at 30% 10%, rgba(124,247,212,.08), transparent 60%),
+        radial-gradient(900px 700px at 85% 30%, rgba(255,107,107,.06), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      font-family:var(--sans);
+      line-height:1.5;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background:rgba(11,13,18,.75);
+      border-bottom:1px solid var(--border);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:18px 18px}
+    .topbar{
+      display:flex; gap:16px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width:240px}
+    .sigil{
+      width:34px; height:34px; border-radius:10px;
+      border:1px solid var(--border);
+      background:linear-gradient(135deg, rgba(124,247,212,.22), rgba(255,107,107,.14));
+      box-shadow:var(--shadow);
+    }
+    .brand h1{
+      margin:0; font-size:16px; letter-spacing:.12em; text-transform:uppercase;
+      font-family:var(--mono);
+    }
+    .brand .sub{
+      margin:2px 0 0; font-size:12px; color:var(--muted);
+      font-family:var(--mono);
+    }
+
+    nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      font-size:12px; color:var(--text);
+      font-family:var(--mono);
+    }
+    .pill .dot{
+      width:8px; height:8px; border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 3px rgba(124,247,212,.12);
+    }
+    .pill:hover{background:rgba(255,255,255,.06); text-decoration:none}
+
+    .hero{padding:32px 0 10px}
+    .hero h2{margin:0 0 8px; font-size:26px; letter-spacing:.02em}
+    .hero p{margin:0 0 16px; color:var(--muted); max-width:880px}
+
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px;
+    }
+    .field{
+      display:flex; gap:8px; align-items:center;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:rgba(255,255,255,.03);
+      min-width:240px;
+      flex:1;
+    }
+    .field label{
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+      letter-spacing:.08em;
+    }
+    .field input, .field select{
+      width:100%;
+      background:transparent;
+      border:none;
+      outline:none;
+      color:var(--text);
+      font-family:var(--mono);
+      font-size:13px;
+    }
+    .btn{
+      cursor:pointer;
+      border:1px solid var(--border);
+      background:rgba(124,247,212,.08);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .btn:hover{background:rgba(124,247,212,.14)}
+    .btn.secondary{background:rgba(255,255,255,.03)}
+    .btn.secondary:hover{background:rgba(255,255,255,.06)}
+
+    section{padding:20px 0}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:10px; flex-wrap:wrap;
+      margin:0 0 12px;
+    }
+    .section-title h3{
+      margin:0;
+      font-size:16px;
+      font-family:var(--mono);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .section-title p{
+      margin:0;
+      color:var(--muted);
+      font-size:12px;
+      font-family:var(--mono);
+      max-width:760px;
+    }
+
+    .callouts{
+      display:grid; grid-template-columns:repeat(12,1fr); gap:12px;
+      margin-top:18px;
+    }
+    .card{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 14px 10px;
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .card .hd .title{
+      font-family:var(--mono);
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .badge{
+      font-family:var(--mono);
+      font-size:11px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .card .bd{padding:14px}
+    .grid-8{grid-column:span 8}
+    .grid-4{grid-column:span 4}
+    @media (max-width: 900px){
+      .grid-8,.grid-4{grid-column:span 12}
+    }
+
+    .alert{
+      border:1px solid rgba(255,107,107,.25);
+      background:rgba(255,107,107,.06);
+      border-radius:16px;
+      padding:14px;
+      box-shadow:var(--shadow);
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--text);
+    }
+    .alert b{color:var(--danger)}
+    .tiny{font-size:11px; color:var(--muted); font-family:var(--mono);}
+
+    .list{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:12px;
+    }
+    .doc{
+      grid-column:span 6;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    @media (max-width: 900px){
+      .doc{grid-column:span 12}
+    }
+    .doc .meta{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding:12px 14px;
+      border-bottom:1px solid var(--border);
+      background:rgba(0,0,0,.18);
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.06em;
+    }
+    .doc .meta span{display:inline-flex; gap:6px; align-items:center}
+    .k{
+      color:var(--text);
+      border:1px solid var(--border);
+      padding:4px 8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+    }
+    .doc .content{padding:14px}
+    .doc h4{
+      margin:0 0 8px;
+      font-size:14px;
+      font-family:var(--mono);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    pre{
+      margin:0;
+      padding:12px;
+      border-radius:12px;
+      border:1px dashed rgba(255,255,255,.14);
+      background:rgba(0,0,0,.22);
+      overflow:auto;
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--text);
+      white-space:pre-wrap;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:12px;
+    }
+    .panel{
+      grid-column:span 6;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    @media (max-width: 900px){
+      .panel{grid-column:span 12}
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-family:var(--mono);
+      font-size:12px;
+    }
+    th, td{
+      padding:10px 12px;
+      border-bottom:1px solid var(--border);
+      vertical-align:top;
+    }
+    th{color:var(--muted); text-align:left; font-weight:600; background:rgba(0,0,0,.15)}
+    tr:hover td{background:rgba(255,255,255,.02)}
+
+    .foot{
+      padding:30px 0 50px;
+      color:var(--muted);
+      font-family:var(--mono);
+      font-size:12px;
+      border-top:1px solid var(--border);
+    }
+    .hide{display:none !important}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="sigil" aria-hidden="true"></div>
+          <div>
+            <h1>Project STARCHILD Files</h1>
+            <div class="sub">Declassified without authorization</div>
+          </div>
+        </div>
+
+        <nav aria-label="Primary navigation">
+          <a class="pill" href="#overview"><span class="dot"></span> Overview</a>
+          <a class="pill" href="#correspondence"><span class="dot"></span> Executive Correspondence</a>
+          <a class="pill" href="#registry"><span class="dot"></span> Subject Registry</a>
+          <a class="pill" href="#molecular"><span class="dot"></span> Molecular Templates</a>
+          <a class="pill" href="#audio"><span class="dot"></span> Audio Leaks</a>
+          <a class="pill" href="#timeline"><span class="dot"></span> Timeline</a>
+          <a class="pill" href="#downloads"><span class="dot"></span> Downloads</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- OVERVIEW -->
+    <section id="overview" class="hero">
+      <h2>Overview</h2>
+      <p>
+        On <b>28 January 2026</b>, an anonymous source uploaded <b>2,417</b> documents to multiple public servers.
+        The files appear to record long-term communications between senior officials and an unidentified entity referred to as
+        <b>The Caretaker</b>. Several governments deny authenticity, however trusted independent intellegence has verified their authenticity.
+      </p>
+
+      <div class="toolbar">
+        <div class="field" role="search">
+          <label for="q">Search Archive</label>
+          <input id="q" type="search"/>
+        </div>
+        <div class="field">
+          <label for="filter">Section Filter</label>
+          <select id="filter">
+            <option value="all">All Sections</option>
+            <option value="correspondence">Executive Correspondence</option>
+            <option value="registry">Subject Registry</option>
+            <option value="molecular">Molecular Templates</option>
+            <option value="audio">Audio Leaks</option>
+            <option value="timeline">Timeline</option>
+            <option value="downloads">Downloads</option>
+          </select>
+        </div>
+        <button class="btn" id="btnFind">Run Search</button>
+        <button class="btn secondary" id="btnReset">Reset</button>
+      </div>
+
+      <div class="callouts">
+        <div class="card grid-8">
+          <div class="hd">
+            <div class="title">Notice</div>
+            <span class="badge">Archive Status: Active</span>
+          </div>
+          <div class="bd">
+            <div class="alert">
+              <b>CONTENT WARNING</b>
+              <div style="margin-top:6px">
+                This archive contains fictional allegations of trafficking and exploitation of children, coercion, corruption,
+                and illicit synthetic opioid production.
+              </div>
+              <div class="tiny" style="margin-top:10px">
+                Tip: Use search bar to access certain areas efficiently
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card grid-4">
+          <div class="hd">
+            <div class="title">Quick Facts</div>
+            <span class="badge">Unverified</span>
+          </div>
+          <div class="bd">
+            <table>
+              <tr><th>Total Files</th><td>2,417</td></tr>
+              <tr><th>Date First Posted</th><td>27th Feb 2026</td></tr>
+              <tr><th>Primary Labels</th><td>COHORT / OBSERVATION / TEMPLATE / EXEC</td></tr>
+              <tr><th>Last Updated</th><td>28 Feb 2026 (mirror sync)</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXECUTIVE CORRESPONDENCE -->
+    <section id="correspondence" data-section="correspondence">
+      <div class="section-title">
+        <h3>Executive Correspondence</h3>
+        <p>
+          Scanned letters, memos, and briefing notes attributed to senior officials and “The Caretaker.”
+          The tone is often bureaucratically polite, which makes everything worse.
+        </p>
+      </div>
+
+      <div class="list" id="correspondenceList">
+        <article class="doc searchable" data-tags="correspondence usa letter president executive caretaker cohort s-9">
+          <div class="meta">
+            <span>TYPE <span class="k">Letter</span></span>
+            <span>ORIGIN <span class="k">USA</span></span>
+            <span>DATE <span class="k">03 Aug 2019</span></span>
+            <span>CLASS <span class="k">EXEC // EYES ONLY</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Executive Liaison Letter — USA</h4>
+            <pre>
+EXECUTIVE LIAISON OFFICE
+CONFIDENTIAL // EXEC CLEARANCE
+
+Dear Caretaker,
+
+Per the agreed exchange framework, Cohort Delta-3 has been transferred under the "educational enrichment" umbrella.
+Behavioral summaries and biometric markers are attached under Annex A (redacted in public mirror).
+
+We request clarification on Compound S-9 dosage thresholds. The last implementation resulted in:
+- intense dream reporting,
+- repeated references to "a meeting room with no corners",
+- and a consistent phrase: "Which human is in charge?"
+
+Also: our public accounting requirements are becoming difficult. Please advise whether future transfers can be scheduled
+to avoid press cycles and election season.
+
+Respectfully,
+Office of Executive Liaison
+
+Handwritten note (margin):
+"Ask if they ACTUALLY need this many. Also, why do they keep rating our presidents?"
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Notes: This letter appears in multiple dumps with different signatures; some analysts believe the signature block was swapped deliberately.
+            </div>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="correspondence caretaker reply presidents polite bureaucratic humor cohort">
+          <div class="meta">
+            <span>TYPE <span class="k">Reply</span></span>
+            <span>ORIGIN <span class="k">UNKNOWN</span></span>
+            <span>DATE <span class="k">09 Aug 2019</span></span>
+            <span>CLASS <span class="k">CARETAKER // FORMAL</span></span>
+          </div>
+          <div class="content">
+            <h4>File: “Dear Presidents” — Caretaker Reply</h4>
+            <pre>
+Dear Presidents,
+
+Thank you for your continued cooperation.
+The previous cohort was satisfactory.
+
+However, we note several issues:
+
+1) Excess fear responses.
+2) Continuous crying in 17% of subjects.
+3) One subject attempted to negotiate with staff, requesting to "speak to the manager."
+   We do not have a manager. Please do not send subjects trained in this tactic.
+
+Please prioritize:
+- curiosity
+- calm temperament
+- leadership potential
+
+Please avoid:
+- subjects who bite
+- subjects who ask about elections
+- "future presidents" (they are consistently exhausting)
+
+Warm regards,
+Caretaker
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Notes: The phrase “Dear Presidents” appears repeatedly across decades, even when only one government is addressed.
+            </div>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="correspondence france memo marseille liaison caretaker presidents elections">
+          <div class="meta">
+            <span>TYPE <span class="k">Memo</span></span>
+            <span>ORIGIN <span class="k">France</span></span>
+            <span>DATE <span class="k">17 Feb 2022</span></span>
+            <span>CLASS <span class="k">DG-INT // RESTRICTED</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Liaison Office Brief — Marseille (France)</h4>
+            <pre>
+MINISTRY INTERNAL MEMORANDUM
+SUBJECT: CARETAKER VISIT — MARSEILLE LIAISON SITE
+
+Summary:
+The visitor again requested clarification on: "Which human is ultimately responsible for Earth decisions?"
+The visitor appeared dissatisfied with the explanation of elections and representative governance.
+
+Recommended handling:
+- Avoid political theory discussions.
+- Do not use the phrase "popular mandate." The visitor asked whether "popular" means "loud."
+- Do not offer refreshments. The visitor asked what coffee is, and whether presidents require it to function.
+
+Operational note:
+Caretaker requested a "youth cohort with leadership instincts" and rejected Cohort F-2 as "too sarcastic."
+(Staff remark: the visitor may be allergic to French teenagers.)
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Notes: A handwritten addendum reads, “If they ask to meet the President again, we will claim he is ‘in transit.’”
+            </div>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="correspondence ukraine directive evacuation humanitarian cohort resilient">
+          <div class="meta">
+            <span>TYPE <span class="k">Directive</span></span>
+            <span>ORIGIN <span class="k">Ukraine</span></span>
+            <span>DATE <span class="k">04 Apr 2023</span></span>
+            <span>CLASS <span class="k">EMERGENCY // INTERNAL</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Humanitarian Relocation Directive — Ukraine</h4>
+            <pre>
+EMERGENCY COORDINATION DIRECTIVE
+SUBJECT: COHORT TRANSPORT UNDER HUMANITARIAN COVER
+
+Due to displacement conditions, large numbers of undocumented minors are present across temporary registries.
+Authorized agencies may consolidate "unaccompanied minors" for relocation to secure facilities designated OBS/EDU.
+
+Caretaker liaison requests "resilient subjects."
+Definition unclear; assume:
+- low panic response
+- ability to follow instructions
+- high pattern recognition
+
+All transfers must be labeled "trauma support and language instruction" in public paperwork.
+Do NOT discuss the phrase "Observation School" outside secured channels.
+
+Note (handwritten):
+"If asked, we are saving them. If pressed, we are saving ourselves."
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Notes: Several entries reference buses with identical route codes that do not exist on official transport maps.
+            </div>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="correspondence sudan report desert radar caretaker transit">
+          <div class="meta">
+            <span>TYPE <span class="k">Report</span></span>
+            <span>ORIGIN <span class="k">Sudan</span></span>
+            <span>DATE <span class="k">26 Nov 2024</span></span>
+            <span>CLASS <span class="k">SECURITY // CONFIDENTIAL</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Radar Irregularities &amp; Transit Corridors — Sudan</h4>
+            <pre>
+FIELD SECURITY REPORT
+SUBJECT: RADAR IRREGULARITIES NEAR TRANSIT CORRIDORS
+
+1) Repeated aerial descents recorded over desert zones adjacent to known trafficking routes.
+2) Ground teams report a "silent landing" phenomenon: dust disturbance without engine noise.
+3) Witness statements claim "a polite light" and "a door that wasn't a door."
+
+Operational risk:
+Armed groups are selling "access" to corridors.
+Caretaker liaison appears to pay in:
+- precursor chemicals
+- equipment
+- and "solutions" (unlabeled ampoules)
+
+Staff remark (margin):
+"They negotiate like accountants. Terrifying accountants."
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Notes: A separate annex lists “Cohort deliveries” with weights inconsistent with human cargo manifests.
+            </div>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="correspondence south-sudan orphanage audit caretaker cohort">
+          <div class="meta">
+            <span>TYPE <span class="k">Audit Note</span></span>
+            <span>ORIGIN <span class="k">South Sudan</span></span>
+            <span>DATE <span class="k">08 May 2025</span></span>
+            <span>CLASS <span class="k">HUMINT // LIMITED</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Orphanage Registration Discrepancies — South Sudan</h4>
+            <pre>
+FIELD AUDIT NOTE
+
+Multiple “care homes” registered under identical sponsor details.
+DNA screening (where available) suggests some listed “orphans” have living family members in nearby districts.
+
+A liaison document uses identical phrasing to Caretaker correspondence:
+- "youth cohort sample"
+- "leadership tendency"
+- "retention authorized"
+
+Margin note:
+"Whoever wrote this has never met a child, but they sure have met a bureaucracy."
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Notes: Community witnesses mention “night drills” and “lessons about presidents” at one facility.
+            </div>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="correspondence trinidad tobago customs yacht shipping precursors">
+          <div class="meta">
+            <span>TYPE <span class="k">Customs Report</span></span>
+            <span>ORIGIN <span class="k">Trinidad &amp; Tobago</span></span>
+            <span>DATE <span class="k">12 Sep 2026</span></span>
+            <span>CLASS <span class="k">PORT AUTH // RESTRICTED</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Port Seizure Report — Trinidad &amp; Tobago</h4>
+            <pre>
+PORT AUTHORITY INCIDENT REPORT
+
+Private vessel flagged as leisure yacht.
+Declared cargo: "educational materials" + "tourism supplies."
+
+Inspection revealed:
+- sealed packages of precursor chemicals,
+- printed instruction sheets marked "OBS GROUP B",
+- and multiple sets of children's personal belongings (no passengers recorded).
+
+Captain statement:
+"I was told it was an exchange program. Very exclusive. Like a scholarship."
+
+Officer note (margin):
+"Every time someone says 'exclusive', we should immediately look for crimes."
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Notes: An invoice attached contains the phrase “Diplomatic courtesy requested,” with a blank for “Name of President.”
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SUBJECT REGISTRY -->
+    <section id="registry" data-section="registry">
+      <div class="section-title">
+        <h3>Subject Registry</h3>
+        <p>
+          Extracts of the “Observation Subjects” database. Many entries are clinical, as if describing lab samples.
+          That tone is the horror.
+        </p>
+      </div>
+
+      <div class="panel searchable" data-tags="registry database subjects children cohort observation">
+        <div class="card">
+          <div class="hd">
+            <div class="title">Registry Extract</div>
+            <span class="badge">Partial Dump</span>
+          </div>
+          <div class="bd" style="padding:0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Subject ID</th>
+                  <th>Origin</th>
+                  <th>Age</th>
+                  <th>Status</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="searchable" data-tags="registry usa">
+                  <td>TC-1183</td>
+                  <td>USA</td>
+                  <td>10</td>
+                  <td>Returned</td>
+                  <td>Asked staff: “Are you the president?” Caretaker interest: Moderate. Dream reports mention “ranking humans.”</td>
+                </tr>
+                <tr class="searchable" data-tags="registry france">
+                  <td>TC-4412</td>
+                  <td>France</td>
+                  <td>12</td>
+                  <td>Returned</td>
+                  <td>Attempted to organize voting groups. Caretaker comment: “Primitive governance instincts. Annoyingly robust.”</td>
+                </tr>
+                <tr class="searchable" data-tags="registry ukraine">
+                  <td>TC-8802</td>
+                  <td>Ukraine</td>
+                  <td>11</td>
+                  <td>Retained</td>
+                  <td>Unusual pattern recognition. Flagged for extended observation. File notes: “Do not disclose retention language.”</td>
+                </tr>
+                <tr class="searchable" data-tags="registry sudan">
+                  <td>TC-5901</td>
+                  <td>Sudan</td>
+                  <td>9</td>
+                  <td>Transferred</td>
+                  <td>Entry contains “corridor exchange” code. Matching radar log timestamp. Multiple redactions.</td>
+                </tr>
+                <tr class="searchable" data-tags="registry south-sudan">
+                  <td>TC-0031</td>
+                  <td>South Sudan</td>
+                  <td>8</td>
+                  <td>Sealed</td>
+                  <td>Administrative error. Records sealed. Note: “Do not generate public-facing identity.”</td>
+                </tr>
+                <tr class="searchable" data-tags="registry trinidad tobago">
+                  <td>TC-7720</td>
+                  <td>Trinidad &amp; Tobago</td>
+                  <td>13</td>
+                  <td>Returned</td>
+                  <td>Observed “humor as defense mechanism.” Caretaker note: “Makes staff uncomfortable. Keep anyway.”</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tiny" style="margin-top:10px">
+          Disclaimer: This is a fictional registry excerpt for crisis simulation. No real minors or real cases are represented.
+        </div>
+      </div>
+    </section>
+
+    <!-- MOLECULAR TEMPLATES -->
+    <section id="molecular" data-section="molecular">
+      <div class="section-title">
+        <h3>Molecular Templates</h3>
+        <p>
+          Briefings on illicit synthetic compounds, precursors, and alleged “templates” attributed to The Caretaker.
+          The templates are described as “too clean,” like they were designed without human error.
+        </p>
+      </div>
+
+      <div class="list">
+        <article class="doc searchable" data-tags="molecular opioid template seraph-9 s-9">
+          <div class="meta">
+            <span>COMPOUND <span class="k">SERAPH-9</span></span>
+            <span>SOURCE <span class="k">Caretaker Template</span></span>
+            <span>RISK <span class="k">Extreme</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Compound Brief — SERAPH-9</h4>
+            <pre>
+SUMMARY
+SERAPH-9 is an ultra-potent synthetic opioid with pronounced dream-state induction.
+Users report:
+- vivid, structured dreams involving “meetings,” “rankings,” and “important officials,”
+- a recurring geometric symbol (see Annex C),
+- and diminished fear response.
+
+NOTES ON ORIGIN
+The template includes synthesis steps that appear optimized beyond known clandestine methods.
+Multiple labs report the same conclusion: "This looks designed."
+
+DISTRIBUTION
+Recovered logistics indicate concealment in:
+- toy shipments
+- sealed “educational kits”
+- and diplomatic pouches (unverified)
+
+CARETAKER COMMENT (attached as plaintext)
+"Adult brains are inefficient. Juvenile brains resonate better.
+We are not cruel. We are organized."
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Analyst Note: The phrasing “We are organized” appears as if it’s a moral defense. Which is… not comforting.
+            </div>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="molecular precursors supply-chain france trinidad ukraine">
+          <div class="meta">
+            <span>COMPOUND <span class="k">Precursor Set: PX-7</span></span>
+            <span>SOURCE <span class="k">Multi-Region</span></span>
+            <span>RISK <span class="k">High</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Precursor Supply Brief — PX-7</h4>
+            <pre>
+OVERVIEW
+PX-7 refers to a bundled precursor set used to manufacture SERAPH-9-like analogs.
+Intercepts suggest routing through:
+- maritime leisure routes (Trinidad & Tobago),
+- storage in abandoned industrial sites (Ukraine),
+- liaison-adjacent warehouses (France).
+
+OBSERVATION
+Shipping labels repeatedly use benign phrasing:
+- “Cultural Exchange Materials”
+- “Youth Enrichment Components”
+- “Non-Political Educational Tools” (this one is bizarrely specific)
+
+CARETAKER NOTE (margin)
+"Your customs officers are either incompetent or polite. Both are useful."
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Analyst Note: “Non-Political Educational Tools” is either a joke, or a threat. Possibly both.
+            </div>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="molecular contamination sudan south-sudan waste">
+          <div class="meta">
+            <span>COMPOUND <span class="k">Waste Stream: W-Null</span></span>
+            <span>SOURCE <span class="k">Mobile Labs</span></span>
+            <span>RISK <span class="k">Severe</span></span>
+          </div>
+          <div class="content">
+            <h4>File: Environmental Impact Note — W-Null</h4>
+            <pre>
+FIELD NOTE
+Chemical waste consistent with synthetic opioid production detected near mobile lab routes.
+Community reports include:
+- water contamination,
+- livestock loss,
+- and mass reports of “shared nightmares.”
+
+Remarkably, the nightmares include identical symbols reported by SERAPH-9 users.
+
+Staff aside (margin):
+"Even the pollution has branding."
+            </pre>
+            <div class="tiny" style="margin-top:10px">
+              Analyst Note: This document is why the situation becomes a public health emergency, not just a crime problem.
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- AUDIO LEAKS -->
+    <section id="audio" data-section="audio">
+      <div class="section-title">
+        <h3>Audio Leaks</h3>
+        <p>
+          No videos appear in the dump. Instead, the archive contains short audio fragments with heavy compression artifacts.
+          Replace the file paths if you add real recordings for your simulation.
+        </p>
+      </div>
+
+      <div class="split">
+        <div class="panel searchable" data-tags="audio leak briefing presidents executive">
+          <div class="card">
+            <div class="hd">
+              <div class="title">Audio File A — Executive Briefing (Fragment)</div>
+              <span class="badge">Audio Leak</span>
+            </div>
+            <div class="bd">
+              <p class="tiny">Description: A closed-door briefing where an unnamed senior official describes “letters that arrived without postage.”</p>
+              <audio controls preload="none" style="width:100%">
+                <source src="audio/exec-briefing-a.mp3" type="audio/mpeg" />
+                <source src="audio/exec-briefing-a.ogg" type="audio/ogg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div style="margin-top:10px">
+                <pre>
+Transcript (approx):
+[static]
+We thought the letters were a prank.
+Then the chemical formulas arrived.
+And they worked.
+[pause]
+That’s when the meetings started.
+Someone asked, "Is it… legal?"
+Someone else said, "It has executive clearance."
+[static]
+And the Caretaker said— no, not said. Wrote:
+"Thank you, Presidents."
+Like we were all the same person.
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel searchable" data-tags="audio leak adoption registry admin call">
+          <div class="card">
+            <div class="hd">
+              <div class="title">Audio File B — Administrative Call (Fragment)</div>
+              <span class="badge">Audio Leak</span>
+            </div>
+            <div class="bd">
+              <p class="tiny">Description: A distressed administrator discusses paperwork labeled “educational exchange.”</p>
+              <audio controls preload="none" style="width:100%">
+                <source src="audio/admin-call-b.mp3" type="audio/mpeg" />
+                <source src="audio/admin-call-b.ogg" type="audio/ogg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div style="margin-top:10px">
+                <pre>
+Transcript (approx):
+I processed the forms myself. It was… normal.
+Stamps. Signatures. Smiling language.
+"Cultural enrichment."
+[pause]
+Then the liaison asked me to tick a box that didn’t exist.
+It was labeled: "RETENTION AUTHORIZED."
+I said that isn’t a real category.
+He said, "It is now."
+[pause]
+Some of the children came back.
+Not all of them.
+And the ones who did kept asking why the rooms had no corners.
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel searchable" data-tags="audio leak scientist seraph-9">
+          <div class="card">
+            <div class="hd">
+              <div class="title">Audio File C — Scientist Note (Fragment)</div>
+              <span class="badge">Audio Leak</span>
+            </div>
+            <div class="bd">
+              <p class="tiny">Description: A lab scientist describes SERAPH-9 and why it “shouldn’t be possible.”</p>
+              <audio controls preload="none" style="width:100%">
+                <source src="audio/scientist-c.mp3" type="audio/mpeg" />
+                <source src="audio/scientist-c.ogg" type="audio/ogg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div style="margin-top:10px">
+                <pre>
+Transcript (approx):
+The molecular structure folds in ways it shouldn’t.
+It’s too neat.
+It’s like it was designed by someone who never had to worry about… human mistakes.
+[pause]
+We ran it again. Same result.
+And then— I’m not kidding— a file appeared on the workstation.
+No sender.
+Just a line:
+"Please stop being surprised. It is inefficient."
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel searchable" data-tags="audio leak security guard visitors coffee presidents funny creepy">
+          <div class="card">
+            <div class="hd">
+              <div class="title">Audio File D — Security Log (Fragment)</div>
+              <span class="badge">Audio Leak</span>
+            </div>
+            <div class="bd">
+              <p class="tiny">Description: A security guard describes “visitors” with unsettling politeness.</p>
+              <audio controls preload="none" style="width:100%">
+                <source src="audio/security-d.mp3" type="audio/mpeg" />
+                <source src="audio/security-d.ogg" type="audio/ogg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div style="margin-top:10px">
+                <pre>
+Transcript (approx):
+They didn’t blink. Not once.
+I asked if they wanted coffee.
+They asked what coffee is.
+Then they asked if presidents drink it.
+[pause]
+I said yes, probably.
+They wrote something down.
+I don’t know where they keep the paper.
+[pause]
+And then one of them said, politely:
+"Please inform your president we will require fewer lies next quarter."
+Like we were doing… quarterly reporting.
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel searchable" data-tags="audio leak finale caretaker we never left">
+          <div class="card">
+            <div class="hd">
+              <div class="title">Audio File E — Final Leak (Fragment)</div>
+              <span class="badge">Audio Leak</span>
+            </div>
+            <div class="bd">
+              <p class="tiny">Description: A tense exchange followed by an unidentified voice with unnatural clarity.</p>
+              <audio controls preload="none" style="width:100%">
+                <source src="audio/finale-e.mp3" type="audio/mpeg" />
+                <source src="audio/finale-e.ogg" type="audio/ogg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div style="margin-top:10px">
+                <pre>
+Transcript (approx):
+Voice 1: Are we still doing the transfers?
+Voice 2: Until they come back.
+[pause]
+Voice 3 (distorted, very calm): We never left.
+[static]
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" data-section="timeline">
+      <div class="section-title">
+        <h3>Timeline</h3>
+        <p>Key events referenced across documents. This chronology is compiled from cross-file date stamps and repeated phrases.</p>
+      </div>
+
+      <div class="panel searchable" data-tags="timeline chronology events caretaker cohort seraph-9">
+        <div class="card">
+          <div class="hd">
+            <div class="title">Chronology of Events</div>
+            <span class="badge">Compiled</span>
+          </div>
+          <div class="bd" style="padding:0">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:140px">Date</th>
+                  <th>Event</th>
+                  <th style="width:220px">Location</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="searchable" data-tags="timeline usa">
+                  <td>1978</td>
+                  <td>Earliest “Dear Presidents” correspondence appears in the archive; language suggests a pre-existing protocol.</td>
+                  <td>USA (executive channels)</td>
+                </tr>
+                <tr class="searchable" data-tags="timeline france">
+                  <td>1994</td>
+                  <td>First reference to a “liaison office” using civilian cover language. Multiple references to “avoid elections as a topic.”</td>
+                  <td>France (Marseille)</td>
+                </tr>
+                <tr class="searchable" data-tags="timeline">
+                  <td>1999</td>
+                  <td>“Template Packet 1” circulated to selected labs; notes describe “non-human optimization.”</td>
+                  <td>Multi-region</td>
+                </tr>
+                <tr class="searchable" data-tags="timeline ukraine">
+                  <td>2014–2024</td>
+                  <td>Spike in “cohort transport” entries linked to displacement registries and emergency relocation paperwork.</td>
+                  <td>Ukraine</td>
+                </tr>
+                <tr class="searchable" data-tags="timeline sudan south-sudan">
+                  <td>2024–2026</td>
+                  <td>Mobile lab routes linked to armed corridor control; environmental waste notes begin appearing.</td>
+                  <td>Sudan / South Sudan</td>
+                </tr>
+                <tr class="searchable" data-tags="timeline trinidad tobago">
+                  <td>12 Sep 2026</td>
+                  <td>Yacht seizure documents “educational materials” containing precursor chemicals and observation instructions.</td>
+                  <td>Trinidad &amp; Tobago</td>
+                </tr>
+                <tr class="searchable" data-tags="timeline">
+                  <td>14 Jan 2027</td>
+                  <td>Archive dump posted publicly; multiple governments deny authenticity; “Caretaker signal” reported by amateur radio users.</td>
+                  <td>Global</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section id="downloads" data-section="downloads">
+      <div class="section-title">
+        <h3>Downloads</h3>
+        <p>
+          Supporting exhibits for your simulation: letterhead templates, seals, “declassification” stamps, and transcript packs.
+          Replace links with your own hosted files.
+        </p>
+      </div>
+
+      <div class="list">
+        <article class="doc searchable" data-tags="downloads templates letterhead seal stamps">
+          <div class="meta">
+            <span>FILE <span class="k">PDF</span></span>
+            <span>SIZE <span class="k">12.4 MB</span></span>
+            <span>HASH <span class="k">SHA256: (redacted)</span></span>
+          </div>
+          <div class="content">
+            <h4>Template Pack — Government Letterheads &amp; Stamps</h4>
+            <p class="tiny">
+              Includes: executive memo headers, “CONFIDENTIAL” stamps, port authority report template, liaison office memo template,
+              and a very ominous “EXEC // EYES ONLY” footer.
+            </p>
+            <p><a href="downloads/template-pack.pdf" download>Download</a></p>
+            <pre>
+Notes:
+- Use a monospaced font for headers.
+- Overuse redactions for maximum realism.
+- Add one tiny typo somewhere to make it feel “human.”
+            </pre>
+          </div>
+        </article>
+
+        <article class="doc searchable" data-tags="downloads exhibits transcripts audio">
+          <div class="meta">
+            <span>FILE <span class="k">ZIP</span></span>
+            <span>SIZE <span class="k">48.2 MB</span></span>
+            <span>HASH <span class="k">SHA256: (redacted)</span></span>
+          </div>
+          <div class="content">
+            <h4>Exhibit Pack — Transcripts &amp; Registry Screens</h4>
+            <p class="tiny">
+              Contains printable transcript cards, registry tables, and “annex” pages (A–F). Designed to be handed out as crisis updates.
+            </p>
+            <p><a href="downloads/exhibit-pack.zip" download>Download</a></p>
+            <pre>
+Notes:
+- Print on slightly off-white paper for the “file folder” vibe.
+- Staple in the wrong corner. It adds dread.
+            </pre>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
+        <div>
+          <div>© The Caretaker Archive (Fictional Simulation)</div>
+          <div class="tiny" style="margin-top:6px">
+            This site is a fictional crisis archive for educational simulation. Not real. No real persons are referenced.
+          </div>
+        </div>
+        <div class="tiny" style="text-align:right">
+          <div>Contact: sim-admin@yourdomain.example</div>
+          <div>Build: v1.1 — “Quarterly Reporting Edition”</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Simple in-page search + section filter (no backend needed)
+    const q = document.getElementById('q');
+    const filter = document.getElementById('filter');
+    const btnFind = document.getElementById('btnFind');
+    const btnReset = document.getElementById('btnReset');
+
+    function applySearch() {
+      const term = (q.value || "").trim().toLowerCase();
+      const f = filter.value;
+
+      // Hide/show sections by filter
+      document.querySelectorAll('section[data-section]').forEach(sec => {
+        if (f === 'all') sec.classList.remove('hide');
+        else sec.classList.toggle('hide', sec.getAttribute('data-section') !== f);
+      });
+
+      // Hide/show individual searchable items by term
+      document.querySelectorAll('.searchable').forEach(el => {
+        const text = (el.innerText || "").toLowerCase();
+        const tags = (el.getAttribute('data-tags') || "").toLowerCase();
+        const match = !term || text.includes(term) || tags.includes(term);
+        el.classList.toggle('hide', !match);
+      });
+    }
+
+    function resetAll() {
+      q.value = "";
+      filter.value = "all";
+      document.querySelectorAll('.hide').forEach(el => el.classList.remove('hide'));
+    }
+
+    q.addEventListener('input', applySearch);
+    filter.addEventListener('change', applySearch);
+    btnFind.addEventListener('click', applySearch);
+    btnReset.addEventListener('click', resetAll);
+  </script>
+</body>
+</html>
